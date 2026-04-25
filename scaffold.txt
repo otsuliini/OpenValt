@@ -1,0 +1,40 @@
+password-manager/
+│
+├── core/                     # C++ crypto + vault logic (single source of truth)
+│   ├── include/
+│   │   ├── vault.hpp
+│   │   ├── crypto.hpp
+│   │   └── types.hpp
+│   ├── src/
+│   │   ├── vault.cpp
+│   │   ├── crypto.cpp
+│   │   └── utils.cpp
+│   └── CMakeLists.txt
+│
+├── cli/                      # C++ CLI tool
+│   ├── src/
+│   │   └── main.cpp
+│   └── CMakeLists.txt
+│
+├── server/                   # backend API (C++ minimal HTTP server)
+│   ├── src/
+│   │   └── main.cpp
+│   └── CMakeLists.txt
+│
+├── web/                      # Next.js frontend
+│   ├── app/
+│   ├── lib/
+│   ├── components/
+│   ├── package.json
+│   └── next.config.js
+│
+├── shared/                   # shared models (JSON schema, types)
+│   ├── vault.schema.json
+│   └── api.types.ts
+│
+├── docs/
+│   ├── threat-model.md
+│   ├── encryption.md
+│   └── architecture.md
+│
+└── docker-compose.yml
