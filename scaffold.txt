@@ -1,36 +1,33 @@
-game/
+password-manager/
 │
-├── client/
-│   ├── src/
-│   │   ├── game/            # core game loop
-│   │   ├── rendering/       # WebGL renderer
-│   │   ├── input/           # keyboard/mouse
-│   │   ├── networking/      # websocket client
-│   │   ├── entities/        # player, bullets, world objects
-│   │   └── ui/              # menus, HUD
-│   │
-│   ├── index.html
+├── backend/              # Go API server
+│   ├── cmd/server/
+│   ├── internal/
+│   │   ├── auth/
+│   │   ├── crypto/
+│   │   ├── db/
+│   │   ├── api/
+│   │   └── models/
+│   ├── go.mod
+│
+├── frontend/            # Next.js app
+│   ├── app/
+│   ├── components/
+│   ├── lib/
+│   ├── next.config.js
 │   └── package.json
 │
-├── server/
+├── cli/                 # Go CLI tool
 │   ├── cmd/
-│   │   └── main.go
-│   │
+│   │   └── pm/
 │   ├── internal/
-│   │   ├── game/            # game state simulation
-│   │   ├── world/           # map + zones
-│   │   ├── players/         # player state
-│   │   ├── combat/          # shooting + damage logic
-│   │   ├── networking/      # websocket handling
-│   │   └── match/           # matchmaking + lobbies
-│   │
-│   ├── models/
+│   │   ├── client/
+│   │   ├── crypto/
+│   │   └── commands/
 │   └── go.mod
 │
-├── shared/
-│   ├── protocol.ts          # client/server message types
-│   └── constants.ts
+├── shared/              # shared logic (careful here)
+│   ├── crypto/
+│   └── types/
 │
-└── docs/
-    ├── game-design.md
-    └── networking-model.md
+└── docker-compose.yml
