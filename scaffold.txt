@@ -1,33 +1,73 @@
 password-manager/
 │
-├── backend/              # Go API server
-│   ├── cmd/server/
-│   ├── internal/
-│   │   ├── auth/
-│   │   ├── crypto/
-│   │   ├── db/
-│   │   ├── api/
-│   │   └── models/
-│   ├── go.mod
+├── core/                     # C++ crypto + vault logic (single source of truth)
+│   ├── include/
+│   │   ├── vault.hpp
+│   │   ├── crypto.hpp
+│   │   └── types.hpp
+│   ├── src/
+│   │   ├── vault.cpp
+│   │   ├── crypto.cpp
+│   │   └── utils.cpp
+│   └── CMakeLists.txt
 │
-├── frontend/            # Next.js app
-│   ├── app/
-│   ├── components/
-│   ├── lib/
-│   ├── next.config.js
-│   └── package.json
+├── cli/                      # C++ CLI tool
+│   ├── src/
+│   │   └── main.cpp
+│   └── CMakeLists.txt
 │
-├── cli/                 # Go CLI tool
+├── server/                   # Go backend API (replaces C++ server)
 │   ├── cmd/
-│   │   └── pm/
+│   │   └── server/
+│   │       └── main.go
+│   │
 │   ├── internal/
-│   │   ├── client/
-│   │   ├── crypto/
-│   │   └── commands/
-│   └── go.mod
+│   │   ├── api/
+│   │   │   ├── router.go
+│   │   │   ├── auth_handler.go
+│   │   │   └── vault_handler.go
+│   │   │
+│   │   ├── service/
+│   │   │   ├── auth_service.go
+│   │   │   └── vault_service.go
+│   │   │
+│   │   ├── storage/
+│   │   │   ├── db.go
+│   │   │   ├── user_repo.go
+│   │   │   └── vault_repo.go
+│   │   │
+│   │   ├── middleware/
+│   │   │   ├── auth_middleware.go
+│   │   │   └── logging.go
+│   │   │
+│   │   ├── model/
+│   │   │   ├── user.go
+│   │   │   ├── vault.go
+│   │   │   └── dto.go
+│   │   │
+│   │   └── config/
+│   │       └── config.go
+│   │
+│   ├── migrations/
+│   │   └── 001_init.sql
+│   │
+│   ├── go.mod
+│   └── Dockerfile
 │
-├── shared/              # shared logic (careful here)
-│   ├── crypto/
-│   └── types/
+├── web/                      # Next.js frontend
+│   ├── app/
+│   ├── lib/
+│   ├── components/
+│   ├── package.json
+│   └── next.config.js
+│
+├── shared/                   # shared models (JSON schema, types)
+│   ├── vault.schema.json
+│   └── api.types.ts
+│
+├── docs/
+│   ├── threat-model.md
+│   ├── encryption.md
+│   └── architecture.md
 │
 └── docker-compose.yml
